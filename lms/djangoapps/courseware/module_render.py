@@ -504,15 +504,17 @@ def modx_dispatch(request, dispatch, location, course_id):
         ajax_return = instance.handle_ajax(dispatch, data)
 
     # If we can't find the module, respond with a 404
-    except NotFoundError:
+    except NotFoundError as err:
         log.exception("Module indicating to user that request doesn't exist")
-        raise Http404
+        # raise Http404
+        return HttpResponse(json.dumps({'success': err[0]+"yolo"})) 
 
     # For XModule-specific errors, we respond with 400
-    except ProcessingError:
+    except ProcessingError as err:
         log.warning("Module encountered an error while prcessing AJAX call",
                     exc_info=True)
         return HttpResponseBadRequest()
+        return HttpResponse(json.dumps({'success': err[0]})) 
 
     # If any other error occurred, re-raise it to trigger a 500 response
     except:
