@@ -96,7 +96,6 @@ class CMS.Views.SubtitlesImportFile extends Backbone.View
         @messages.render('error')
 
   updateData: (xml) ->
-    console.log xml
     if xml
       editBox = @options
         .$container
