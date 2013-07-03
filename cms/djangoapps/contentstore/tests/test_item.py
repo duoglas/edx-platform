@@ -291,6 +291,7 @@ At the left we can see...
 
         self.assertEqual(resp.status_code, 200)
         self.assertTrue(json.loads(resp.content).get('success'))
+        self.assertTrue(json.loads(resp.content).get('xml'))
 
         filename = slugify(
             os.path.splitext(os.path.basename(self.good_srt_file.name))[0])
