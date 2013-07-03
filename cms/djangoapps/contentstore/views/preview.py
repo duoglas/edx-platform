@@ -71,7 +71,7 @@ def preview_component(request, location):
 
     return render_to_response('component.html', {
         'preview': get_module_previews(request, component)[0],
-        'editor': wrap_xmodule(component.get_html, component, 'xmodule_edit.html')()
+        'editor': wrap_xmodule(component.get_html, component, 'xmodule_edit.html')(),
     })
 
 
