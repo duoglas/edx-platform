@@ -185,7 +185,10 @@ class VideoAlphaDescriptor(VideoAlphaFields, TabsEditingDescriptor):
 
     def get_context(self):
         """Extend context and add two additional flags:
-        'is_youtube' and 'has_subs_content'
+        'is_youtube' and 'has_subs_content'.VideoAlphaDescriptor
+
+        This context variables we use for CMS subtitles feature, where
+        we try to understand, must we show some buttons or not.
         """
         _context = super(VideoAlphaDescriptor, self).get_context()
 
