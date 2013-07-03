@@ -238,6 +238,18 @@ class CrowdsourceHinterTest(unittest.TestCase):
         self.assertTrue(out is None)
         self.assertTrue(['26.0', [None, None, None]] in m.previous_answers)
 
+    def test_gethint_unparsable(self):
+        """
+        Someone submits a hint that cannot be parsed into a float.
+        - The answer should not be added to previous_answers.
+        """
+        m = CHModuleFactory.create()
+        old_answers = copy.deepcopy(m.previous_answers)
+        json_in = {'problem_name': 'fish'}
+        out = m.get_hint(json_in)
+        self.assertTrue(out is None)
+        self.assertTrue(m.previous_answers == old_answers)
+
     def test_gethint_1hint(self):
         """
         Someone asks for a hint, with exactly one hint in the database.
