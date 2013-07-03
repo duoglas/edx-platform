@@ -234,7 +234,7 @@ def upload_subtitles(request):
         log.error('Missing or blank "youtube" attribute and "source" tag.')
         return False
 
-    return status
+    return status, {'xml': etree.tostring(xmltree)}
 
 
 @login_required
