@@ -486,6 +486,17 @@ class DownloadSubtitles(BaseSubtitles):
         del_cached_content(content_location)
         return content_location
 
+    def remove_subs_from_store(self, subs_id):
+        """Remove from store, if subtitles content exists."""
+        filename = 'subs_{0}.srt.sjson'.format(subs_id)
+        content_location = StaticContent.compute_location(
+            self.org, self.number, filename)
+        try:
+            content = contentstore().find(content_location)
+            contentstore().delete(content.get_id())
+        except NotFoundError:
+            pass
+
     def test_success_download_youtube_speed_1(self):
         data = '<videoalpha youtube="1:JMD_ifUUfsU" />'
         modulestore().update_item(self.item_location, data)
@@ -549,6 +560,8 @@ class DownloadSubtitles(BaseSubtitles):
         resp = self.client.get(
             reverse('download_subtitles'), {'id': self.item_location})
         self.assertEqual(resp.status_code, 200)
+
+        self.remove_subs_from_store(subs_id)
 
     def test_fail_data_without_file(self):
         resp = self.client.get(
@@ -636,7 +649,7 @@ class DownloadSubtitles(BaseSubtitles):
             reverse('download_subtitles'), {'id': self.item_location})
         self.assertEqual(resp.status_code, 404)
 
-    def test_fail_bad_sjon_subs(self):
+    def test_fail_bad_sjson_subs(self):
         data = '<videoalpha youtube="1:JMD_ifUUfsU" />'
         modulestore().update_item(self.item_location, data)
 
