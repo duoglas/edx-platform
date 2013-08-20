@@ -64,8 +64,8 @@ DATABASES = {
     }
 }
 
-LMS_BASE = "localhost:8000"
-MITX_FEATURES['PREVIEW_LMS_BASE'] = "localhost:8000"
+LMS_BASE = "10.120.145.221:8000"
+MITX_FEATURES['PREVIEW_LMS_BASE'] = "10.120.145.221:8000"
 
 REPOS = {
     'edx4edx': {
